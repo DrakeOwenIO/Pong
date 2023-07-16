@@ -140,7 +140,10 @@ void Game::Draw() {
 
 // Kill
 void Game::Shutdown() {
+
+    // Frees sound
     ball->Shutdown();
+
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     Mix_CloseAudio();

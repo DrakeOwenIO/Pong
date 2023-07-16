@@ -17,6 +17,14 @@ public:
 
 	void SetGameStatesPending();
 	
+
+	// Destructor, doesn't work :(
+	~Game() {
+		delete leftPaddle;
+		delete rightPaddle;
+		delete ball;
+	}
+	
 private:
 	void HandleEvents();
 	void Update();
