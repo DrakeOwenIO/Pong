@@ -6,10 +6,10 @@ class Ball
 {
 public:
 	Ball();
-	void Update();
+	void Update(Paddle* lPaddle, Paddle* rPaddle);
 	void SetVel(float x, float y);
 	void InvertXVel();
-	bool HasCollided(Paddle* paddle);
+	void HandleCollision(Paddle* paddle);
 
 	SDL_Rect* GetRect();
 

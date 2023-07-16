@@ -3,7 +3,7 @@
 
 
 Ball::Ball() {
-	speed = 0.10;
+	speed = 0.15;
 
 
 	pos.x = 0;
@@ -13,7 +13,7 @@ Ball::Ball() {
 	pos.y = SCREEN_HEIGHT / 2 - size / 2;
 
 	vel.x = 1;
-	vel.y = 0;
+	vel.y = 1;
 
 	rect.x = (int)pos.x;
 	rect.y = (int)pos.y;
@@ -21,9 +21,12 @@ Ball::Ball() {
 	rect.h = size;
 }
 
-void Ball::Update() {
+void Ball::Update(Paddle* lPaddle, Paddle* rPaddle) {
 	pos.x = pos.x + vel.x * speed;
 	pos.y = pos.y + vel.y * speed;
+
+	HandleCollision(lPaddle);
+	HandleCollision(rPaddle);
 
 	// Keep ball in bounds
 	if (pos.y < 0) {
@@ -44,18 +47,24 @@ void Ball::SetVel(float x, float y) {
 }
 
 void Ball::InvertXVel() {
-	vel.x *= -1;
+	
 }
 
-bool Ball::HasCollided(Paddle* paddle) {
+void Ball::HandleCollision(Paddle* paddle) {
 	if (pos.x + size >= paddle->GetPos().x && // Right ball intersect left paddle
 		pos.x <= paddle->GetPos().x + paddle->GetRect()->w && // Left ball intersect right paddle
 		pos.y + size >= paddle->GetPos().y && // Bottom aball intersect top paddle
 		pos.y <= paddle->GetPos().y + paddle->GetRect()->h // Top ball intersect bottom paddle
 		){
-			return true;
+		vel.x *= -1;
+
+		if (paddle->GetId() == 0) {
+			pos.x = paddle->GetPos().x + paddle->GetRect()->w;
 		}
-		return false;
+		else if (paddle->GetId() == 1) {
+			pos.x = paddle->GetPos().x - size;
+		}
+	}
 }
 
 SDL_Rect* Ball::GetRect() {

@@ -82,16 +82,7 @@ void Game::Update() {
     leftPaddle->Update();
     rightPaddle->Update();
 
-    ball->Update();
-
-    if (ball->HasCollided(leftPaddle)) {
-        cout << "LEFT" << endl;
-        ball->InvertXVel();
-    }
-    if (ball->HasCollided(rightPaddle)) {
-        cout << "Right" << endl;
-        ball->InvertXVel();
-    }
+    ball->Update(leftPaddle, rightPaddle);
 }
 
 void Game::Draw() {
