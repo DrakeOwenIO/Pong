@@ -23,10 +23,10 @@ bool Game::Init() {
         return false;
     }
 
-    if (TTF_Init != 0) {
+    // Create Text
+    if (TTF_Init() != 0) {
         return false;
     }
-
 
     // Open audio channel
     Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
@@ -112,6 +112,9 @@ void Game::Draw() {
     // Draw Ball
     SDL_SetRenderDrawColor(renderer, 40, 40, 255, 255);
     SDL_RenderFillRect(renderer, ball->GetRect());
+
+    leftPaddle->showScore(renderer, font, fontColor);
+    rightPaddle->showScore(renderer, font, fontColor);
 
     // Display Everything
     SDL_RenderPresent(renderer);

@@ -10,8 +10,8 @@ public:
 	void HandleCollision(Paddle* paddle);
 	bool TopCollision(Paddle* paddle);
 	bool BottomCollision(Paddle* paddle);
-	void Shutdown();
 	void Reset();
+	void Shutdown();
 
 	SDL_Rect* GetRect();
 

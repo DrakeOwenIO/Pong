@@ -1,7 +1,5 @@
 #include "Ball.h"
 
-
-
 Ball::Ball() {
 	speed = INITIAL_SPEED;
 
