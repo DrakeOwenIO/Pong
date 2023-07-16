@@ -52,7 +52,7 @@ void Paddle::showScore(SDL_Renderer* renderer, TTF_Font* font, SDL_Color color) 
 		scoreRect.x = SCREEN_WIDTH / 2 - 100;
 	}
 	else if (id == 1) {
-		scoreRect.x - SCREEN_WIDTH / 2 + 100;
+		scoreRect.x = SCREEN_WIDTH / 2 + 100;
 	}
 	scoreRect.y = 50;
 	scoreRect.w = scoreSurface->w;

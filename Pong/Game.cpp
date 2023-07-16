@@ -113,6 +113,7 @@ void Game::Draw() {
     SDL_SetRenderDrawColor(renderer, 40, 40, 255, 255);
     SDL_RenderFillRect(renderer, ball->GetRect());
 
+    // Print scores
     leftPaddle->showScore(renderer, font, fontColor);
     rightPaddle->showScore(renderer, font, fontColor);
 
