@@ -1,11 +1,12 @@
 #pragma once
 #include <SDL_mixer.h>
 #include "Paddle.h"
+#include "Game.h"
 
 class Ball
 {
 public:
-	Ball();
+	Ball(class Game* g);
 	void Update(Paddle* lPaddle, Paddle* rPaddle);
 	void HandleCollision(Paddle* paddle);
 	bool TopCollision(Paddle* paddle);
@@ -27,6 +28,8 @@ private:
 	SDL_Rect rect;
 
 	Mix_Chunk* sound = nullptr;
+
+	Game* game;
 };
 
 

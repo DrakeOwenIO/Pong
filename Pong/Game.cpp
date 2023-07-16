@@ -36,12 +36,16 @@ bool Game::Init() {
     rightPaddle = new Paddle(1);
 
     // Initialize ball
-    ball = new Ball;
+    ball = new Ball(this);
 
     // Set Font
     font = TTF_OpenFont("Assets/font.ttf", 32);
 
     return true;
+}
+
+void Game::SetGameStatesPending() {
+    gameState = Gamestates::Pending;
 }
 
 // Gameloop
@@ -69,8 +73,17 @@ void Game::HandleEvents() {
     // Close game with escape
     const Uint8* keystates = SDL_GetKeyboardState(NULL);
 
+    // Close game with escape
     if (keystates[SDL_SCANCODE_ESCAPE]) {
         isRunning = false;
+    }
+
+    // Changes game state from pending to playing
+    if (gameState == Gamestates::Pending) {
+        if (keystates[SDL_SCANCODE_SPACE]) {
+            gameState = Gamestates::Playing;
+        }
+        return;
     }
 
     // Left Paddle Movement
@@ -93,6 +106,10 @@ void Game::HandleEvents() {
 }
 
 void Game::Update() {
+    if (gameState == Gamestates::Pending) {
+        return;
+    }
+    
     leftPaddle->Update();
     rightPaddle->Update();
 
