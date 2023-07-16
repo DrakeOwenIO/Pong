@@ -22,5 +22,8 @@ private:
 
 	class Paddle* leftPaddle, * rightPaddle;
 	class Ball* ball;
+
+	TTF_Font* font = nullptr;
+	SDL_Color fontColor = { 255, 255, 255 };
 };
 

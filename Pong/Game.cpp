@@ -6,7 +6,7 @@
 bool Game::Init() {
 
     // If renderer doesn't work return false
-    if (SDL_Init(SDL_INIT_VIDEO) != 0) {
+    if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) != 0) {
         return false;
     }
 
@@ -19,6 +19,17 @@ bool Game::Init() {
 
     // Create Renderer
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_ACCELERATED);
+    if (!renderer) {
+        return false;
+    }
+
+    if (TTF_Init != 0) {
+        return false;
+    }
+
+
+    // Open audio channel
+    Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
 
     // Initialization of paddles
     leftPaddle = new Paddle(0);
@@ -26,6 +37,9 @@ bool Game::Init() {
 
     // Initialize ball
     ball = new Ball;
+
+    // Set Font
+    font = TTF_OpenFont("Assets/font.ttf", 32);
 
     return true;
 }
@@ -105,7 +119,10 @@ void Game::Draw() {
 
 // Kill
 void Game::Shutdown() {
+    ball->Shutdown();
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
+    Mix_CloseAudio();
+    TTF_Quit();
     SDL_Quit();
 }
